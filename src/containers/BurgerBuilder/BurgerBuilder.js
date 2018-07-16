@@ -21,7 +21,8 @@ class BurgerBuilder extends Component{
             meat: 0
         },
         totalPrice: 4,
-        purchaseable: false
+        purchaseable: false,
+        purchasing: false
     }
 
     //checks if the ingredient amount is 0 and if yes, makes the order button disabled
@@ -82,6 +83,9 @@ class BurgerBuilder extends Component{
     }
 
    
+    purchaseHandler = () =>{
+        this.setState({purchasing:true});
+    }
 
     render(){
    
@@ -97,7 +101,7 @@ class BurgerBuilder extends Component{
 
         return(
             <Aux>
-                <Modal>
+                <Modal show={this.state.purchasing}>
                     <OrderSummary ingredients = {this.state.ingredients}/>
                 </Modal>
                 <Burger ingredients = {this.state.ingredients} />
@@ -107,6 +111,7 @@ class BurgerBuilder extends Component{
                     disabled={disabledInfo}
                     purchaseable = {this.state.purchaseable}
                     price = {this.state.totalPrice}
+                    ordered = {this.purchaseHandler}
                 />
 
             </Aux>
