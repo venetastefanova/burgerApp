@@ -22,6 +22,7 @@ class BurgerBuilder extends Component{
         purchaseable: false
     }
 
+    //checks if the ingredient amount is 0 and if yes, makes the order button disabled
     updatePurchaseState (ingredients) {
         const sum = Object.keys(ingredients) //creates array of strings
             .map(isKey=>{
