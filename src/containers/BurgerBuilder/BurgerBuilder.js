@@ -82,9 +82,13 @@ class BurgerBuilder extends Component{
         this.updatePurchaseState(updatedIngredients); // makes the order button enabled or disabled
     }
 
-   
+   //makes it possible for the modal to show
     purchaseHandler = () =>{
         this.setState({purchasing:true});
+    }
+    //closes the modal
+    purchaseCanelHandler = () =>{
+        this.setState({purchasing:false});
     }
 
     render(){
@@ -101,7 +105,7 @@ class BurgerBuilder extends Component{
 
         return(
             <Aux>
-                <Modal show={this.state.purchasing}>
+                <Modal modalClosed = {this.purchaseCanelHandler} show={this.state.purchasing}>
                     <OrderSummary ingredients = {this.state.ingredients}/>
                 </Modal>
                 <Burger ingredients = {this.state.ingredients} />
