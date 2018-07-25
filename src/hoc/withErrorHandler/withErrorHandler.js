@@ -8,7 +8,7 @@ const withErrorHandler = (WrappedComponent, axios) => {
             error:null // error is initially none
         }
         // creates global error handler
-        componentDidMount(){
+        componentWillMount(){//it's called before child components are rendered
             axios.interceptors.request.use(req=>{
                 this.setState({error:null}); // clearing error on request
                 return req; // returns the request so it can continue
