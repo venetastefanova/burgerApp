@@ -9,16 +9,20 @@ const withErrorHandler = (WrappedComponent, axios) => {
         }
         // creates global error handler
         componentWillMount(){//it's called before child components are rendered
-            axios.interceptors.request.use(req=>{
+            this.reqInterceptor = axios.interceptors.request.use(req=>{
                 this.setState({error:null}); // clearing error on request
                 return req; // returns the request so it can continue
             });
-            axios.interceptors.response.use(res=>res,error => { // returns response so it can continue
+            this.resInterceptor = axios.interceptors.response.use(res=>res,error => { // returns response so it can continue
                 this.setState({error:error});
             });
 
         }
-
+        componentWillUnmount(){ // removing the interceptoprs and preventing memory leaks
+            console.log("will unmount" , this.reqInterceptor, this.resInterceptor);
+            axios.interceptors.request.eject(this.reqInterceptor);
+            axios.interceptors.response.eject(this.resInterceptor);
+        }
         errorConfirmedHandler = () => {
             this.setState({error:null});
         }
