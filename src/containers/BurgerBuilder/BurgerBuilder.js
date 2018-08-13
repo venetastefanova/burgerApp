@@ -101,30 +101,30 @@ class BurgerBuilder extends Component{
     }
 
     purchaseContinueHandler = () => {
-        //alert("you continued");
-        this.setState({loading:true}); // changing the state and making the loader to show
-        const order = {
-            ingredients: this.state.ingredients,
-            price:this.state.totalPrice,
-            customer:{
-                name: "Veneta Stefanova",
-                address: {
-                    street: "teststreet 1",
-                    zipCode: "342342",
-                    country: 'Finland'
-                },
-                email: 'test@test.com'
-            },
-            deliveryMethod: 'fastest'
-        }
-        axios.post("/orders.json", order) //sending post to firebase, firebase uses .json extension after path
-            .then(response=>{
-                this.setState({loading:false, purchasing:false}); // swaps loading with the purchase
-            })
-            .catch(error=>{
-                console.log(error);
-                this.setState({loading:false, purchasing:false}); // swaps loading with the purchase
-            });
+        // //alert("you continued");
+        // this.setState({loading:true}); // changing the state and making the loader to show
+        // const order = {
+        //     ingredients: this.state.ingredients,
+        //     price:this.state.totalPrice,
+        //     customer:{
+        //         name: "Veneta Stefanova",
+        //         address: {
+        //             street: "teststreet 1",
+        //             zipCode: "342342",
+        //             country: 'Finland'
+        //         },
+        //         email: 'test@test.com'
+        //     },
+        //     deliveryMethod: 'fastest'
+        // }
+        // axios.post("/orders.json", order) //sending post to firebase, firebase uses .json extension after path
+        //     .then(response=>{
+        //         this.setState({loading:false, purchasing:false}); // swaps loading with the purchase
+        //     })
+        //     .catch(error=>{
+        //         console.log(error);
+        //         this.setState({loading:false, purchasing:false}); // swaps loading with the purchase
+        //     });
 
     };
     render(){

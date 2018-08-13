@@ -1,14 +1,15 @@
 import React from 'react';
 import classes from './Burger.css';
 import BurgerIngredient from './BurgerIngredient/BurgerIngredient';
+import {withRouter} from 'react-router-dom';
 
 const burger = (props) => {
     // turns the ingredients coming from props, from object to array
    // using map function on this array, we construct a new array using the Array(),
    //by passing the number of times each ingredient must be added(which is the original ingredients object passed as props) as the value
    // then for each array of specific ingredients, we return JSX containing the BurgerIngredient component
-
-    let transformedIngredients = Object.keys(props.ingredients)
+    // console.log(props);
+        let transformedIngredients = Object.keys(props.ingredients)
         .map(igKey=>{         
             // igKEy = salad, cheese... index = 1,2,3 ...
             return [...Array(props.ingredients[igKey])].map((_, index)=>{
@@ -33,4 +34,4 @@ const burger = (props) => {
     );
 };
 
-export default burger;
+export default withRouter(burger);
