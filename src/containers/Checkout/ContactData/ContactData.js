@@ -21,7 +21,7 @@ class ContactData extends Component{
         this.setState({loading:true}); // changing the state and making the loader to show
         const order = {
             ingredients: this.props.ingredients,
-            price:this.props.totalPrice,
+            price:this.props.price,
             customer:{
                 name: "Veneta Stefanova",
                 address: {
