@@ -94,7 +94,6 @@ class ContactData extends Component{
         let form = (<form>
             {/* maps through the array and creates the form elements deriving the from the object */}
            {formElementsArray.map(formElement=>(
-               
                <Input 
                     key={formElement.id}
                     elementType={formElement.config.elementType}
