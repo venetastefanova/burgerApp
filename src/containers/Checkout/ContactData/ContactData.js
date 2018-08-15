@@ -81,6 +81,22 @@ class ContactData extends Component{
             });
         console.log(this.props.ingredients);
     }
+
+    // detects input chanage for all form elements
+    inputChangedHandler=(event, inputIdentifier)=>{
+        //console.log(event.target.value);
+        const updatedOrderForm = {//cloning the orderForm object from state
+            ...this.state.orderForm
+        }
+        // updatedOrderForm[name],  updatedOrderForm[email]...
+        const updatedFormElement = {
+            ...updatedOrderForm[inputIdentifier]
+        }
+        //updates the value state with the changed input
+        updatedFormElement.value = event.target.value;
+        updatedOrderForm[inputIdentifier] = updatedFormElement;
+        this.setState({orderForm:updatedOrderForm});
+    }
     render(){
         // creating array of the object form in the state
         const formElementsArray = [];
@@ -96,6 +112,7 @@ class ContactData extends Component{
            {formElementsArray.map(formElement=>(
                <Input 
                     key={formElement.id}
+                    changed={(event)=>this.inputChangedHandler(event,formElement.id)}
                     elementType={formElement.config.elementType}
                     elementConfig={formElement.config.elementConfig}
                     value={formElement.config.value}/>

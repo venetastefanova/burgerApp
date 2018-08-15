@@ -7,12 +7,14 @@ const input=(props)=>{
     switch (props.elementType){
         case('input')://...props gets the stuff from props
             inputElement=<input 
+                onChange={props.changed} // comes from method passed by props from parent
                 className={classes.InputElement} 
                 {...props.elementConfig}
                 value={props.value}/>
             break;
         case('textarea'):
             inputElement=<textarea 
+                onChange={props.changed} // comes from method passed by props from parent
                className={classes.InputElement} 
                {...props.elementConfig}
                value={props.value}/>
@@ -20,6 +22,7 @@ const input=(props)=>{
         case('select'):
                 inputElement=(
                     <select
+                        onChange={props.changed} // comes from method passed by props from parent
                         className={classes.InputElement} 
                         {...props.elementConfig}
                          value={props.value}>
@@ -36,6 +39,7 @@ const input=(props)=>{
             break;
         default:
             inputElement=<input 
+              onChange={props.changed} // comes from method passed by props from parent
                className={classes.InputElement} 
                {...props.elementConfig}
                value={props.value}/>
