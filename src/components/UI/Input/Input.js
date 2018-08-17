@@ -5,7 +5,7 @@ const input=(props)=>{
     let inputElement = null;
     const inputClasses = [classes.InputElement];
     // checks if there is something invalid AND if the dropdown should be validated.
-    if(props.invalid && props.shouldValidate){
+    if(props.invalid && props.shouldValidate && props.touched){
         inputClasses.push(classes.InValid);//if invalid is true, add a class 
     }
     //checks what type of input to create, receved from props
