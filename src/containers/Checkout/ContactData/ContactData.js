@@ -87,9 +87,12 @@ class ContactData extends Component{
                             {value:'cheapest', displayValue: 'cheapest'}                            
                         ]
                     },
-                    value: ''
+                    value: '',
+                    validation:{},  // fixes a validation error
+                    valid:true
                 }
         },
+        formIsValid:false,
         loading:false
     }
 
@@ -151,9 +154,15 @@ class ContactData extends Component{
         updatedFormElement.value = event.target.value;
         updatedFormElement.valid = this.checkValidity(updatedFormElement.value,updatedFormElement.validation)
         updatedFormElement.touched = true;
-        console.log(updatedFormElement);
+        let formIsValid = true;
+        //checks if all inputs are valid
+        for(let inputIdentifier in updatedOrderForm){
+            formIsValid = updatedOrderForm[inputIdentifier].valid && formIsValid; // 
+        }
+        console.log(formIsValid);
+        //console.log(updatedFormElement);
         updatedOrderForm[inputIdentifier] = updatedFormElement;
-        this.setState({orderForm:updatedOrderForm});
+        this.setState({orderForm:updatedOrderForm, formIsValid:formIsValid});
     }
     render(){
         // creating array of the object form in the state
@@ -179,7 +188,7 @@ class ContactData extends Component{
                         elementConfig={formElement.config.elementConfig}
                         value={formElement.config.value}/>
             ))}
-                <Button btnType ="Success" >ORDER</Button>
+                <Button btnType ="Success" disabled={!this.state.formIsValid}>ORDER</Button>
             </form>);
         if(this.state.loading){
             form = <Spinner/>;
