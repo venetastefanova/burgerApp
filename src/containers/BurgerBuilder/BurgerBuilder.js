@@ -25,13 +25,13 @@ class BurgerBuilder extends Component{
     }
     
     componentDidMount(){
-        axios.get('https://react-burger-app-veneta.firebaseio.com/ingredients.json')
-            .then(response=>{
-                this.setState({ingredients:response.data});
-            })
-            .catch(error=>{
-                this.setState({error:true});
-            });
+        // axios.get('https://react-burger-app-veneta.firebaseio.com/ingredients.json')
+        //     .then(response=>{
+        //         this.setState({ingredients:response.data});
+        //     })
+        //     .catch(error=>{
+        //         this.setState({error:true});
+        //     });
     }
 
     //checks if the ingredient amount is 0 and if yes, makes the order button disabled
