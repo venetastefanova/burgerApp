@@ -10,16 +10,8 @@ import withErrorHandler from '../../hoc/withErrorHandler/withErrorHandler';
 import {connect} from 'react-redux';
 import * as actionTypes from '../../store/actions';
 
-const INGREDIENT_PRICES = {
-    salad: 0.5,
-    cheese: 0.4,
-    meat: 1.3,
-    bacon:0.7
-}
-
 class BurgerBuilder extends Component{
     state = {
-        totalPrice: 4,
         purchaseable: false,
         purchasing: false,
         loading: false, // for the ajax
@@ -47,51 +39,7 @@ class BurgerBuilder extends Component{
             },0);
         this.setState({purchaseable: sum > 0 });
     }
-    //type is the salad,bacon,cheese....
-    addIngredientHandler = (type)=> {
-        // gets the type of the ingredient = salad, bacon.. and the times it is in initial state
-        const oldCount = this.state.ingredients[type];
-        const updatedCount = oldCount + 1;
-        //we make opy of the array because we want to modify state
-        const updatedIngredients = {
-            ...this.state.ingredients
-        };
-        //updating the copied array before calling state
-        updatedIngredients[type] = updatedCount;
-
-        //gets the price from the initial constant
-        const priceAddition = INGREDIENT_PRICES[type];
-        const oldPrice = this.state.totalPrice;
-        const newPrice = oldPrice + priceAddition;
-        //changing the state 
-        this.setState({totalPrice: newPrice, ingredients:updatedIngredients});
-        this.updatePurchaseState(updatedIngredients); // makes the order button enabled or disabled
-        
-    }
-
-    //type is the salad,cheese...
-    removeIngredientHandler = (type)=>{
-        // gets the type of the ingredient = salad, bacon.. and the times it is in initial state
-        const oldCount = this.state.ingredients[type];
-        if(oldCount <= 0){
-            return; // doesnt throw error if there is no ingredients to delete
-        }
-        const updatedCount = oldCount - 1;
-        //we make opy of the array because we want to modify state
-        const updatedIngredients = {
-            ...this.state.ingredients
-        };
-        //updating the copied array before calling state
-        updatedIngredients[type] = updatedCount;
-
-        //gets the price from the initial constant
-        const priceDeduction = INGREDIENT_PRICES[type];
-        const oldPrice = this.state.totalPrice;
-        const newPrice = oldPrice + priceDeduction;
-        //changing the state 
-        this.setState({totalPrice: newPrice, ingredients:updatedIngredients})
-        this.updatePurchaseState(updatedIngredients); // makes the order button enabled or disabled
-    }
+    
 
    //makes it possible for the modal to show
     purchaseHandler = () =>{
@@ -142,11 +90,11 @@ class BurgerBuilder extends Component{
                     ingredientRemoved={this.props.onIngredientRemoved}
                     disabled={disabledInfo}
                     purchaseable = {this.state.purchaseable}
-                    price = {this.state.totalPrice}
+                    price = {this.props.price}
                     ordered = {this.purchaseHandler}/>
                  </Aux>;
          orderSummary = <OrderSummary 
-                finalPrice = {this.state.totalPrice}
+                finalPrice = {this.props.price}
                 ingredients = {this.props.ings}
                 purchaseContinued = {this.purchaseContinueHandler}
                 purchaseCancelled = {this.purchaseCanelHandler}
@@ -172,7 +120,8 @@ class BurgerBuilder extends Component{
 
 const mapStateToProps = (state)=>{
     return {
-        ings:state.ingredients
+        ings:state.ingredients,
+        price:state.totalPrice
     }
 }
 
