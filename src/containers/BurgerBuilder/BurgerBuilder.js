@@ -50,19 +50,8 @@ class BurgerBuilder extends Component{
     }
 
     purchaseContinueHandler = () => {
-        //pushes all ingredients from state to the array queryParams
-        const queryParams = [];
-        for (let i in this.state.ingredients){
-            //adds them like -> salad = 2...
-            queryParams.push(encodeURIComponent(i)+ '=' + encodeURIComponent(this.state.ingredients[i]));
-        }
-        queryParams.push('price=' + this.state.totalPrice);//passing total price to the URL parameters
+        this.props.history.push("/checkout");
         
-        const queryString = queryParams.join('&');
-        this.props.history.push({
-            pathname:"/checkout",
-            search: '?'+ queryString // passing it as url
-        });
     };
     render(){
    
