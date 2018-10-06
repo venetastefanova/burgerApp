@@ -1,13 +1,9 @@
 import * as actionTypes from '../actions/actionTypes';
 
 const initialState={
-    ingredients:{// temporary fix because dont know yet how to handle ajax calls
-        salad:0,
-        bacon:0,
-        cheese:0,
-        meat:0
-    },
-    totalPrice:4
+    ingredients:null,
+    totalPrice:4,
+    error:false
 }
 
 

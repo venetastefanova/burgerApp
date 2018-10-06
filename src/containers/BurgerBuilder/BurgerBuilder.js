@@ -4,28 +4,19 @@ import Burger from '../../components/Burger/Burger';
 import BuildControls from '../../components/Burger/BuildControls/BuildControls';
 import Modal from '../../components/UI/Modal/Modal';
 import OrderSummary from "../../components/Burger/OrderSummary/OrderSummary";
-import axios from '../../axios-orders';
 import Spinner from '../../components/UI/Spinner/Spinner';
 import withErrorHandler from '../../hoc/withErrorHandler/withErrorHandler';
 import {connect} from 'react-redux';
 import * as burgerBuilderActions from '../../store/actions/index';
+import axios from '../../axios-orders';
+
 
 class BurgerBuilder extends Component{
     state = {
-        purchasing: false,
-        loading: false, // for the ajax
-        error:false
+        purchasing: false
     }
     
-    componentDidMount(){
-        // axios.get('https://react-burger-app-veneta.firebaseio.com/ingredients.json')
-        //     .then(response=>{
-        //         this.setState({ingredients:response.data});
-        //     })
-        //     .catch(error=>{
-        //         this.setState({error:true});
-        //     });
-    }
+
 
     //checks if the ingredient amount is 0 and if yes, makes the order button disabled
     updatePurchaseState (ingredients) {
@@ -88,9 +79,8 @@ class BurgerBuilder extends Component{
                 purchaseCancelled = {this.purchaseCanelHandler}
                 />;
         }
-        if(this.state.loading){// if it's still loading
-        orderSummary = <Spinner/>;
-    }
+
+    
 
 
         return(
