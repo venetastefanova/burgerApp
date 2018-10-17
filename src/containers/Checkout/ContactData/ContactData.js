@@ -1,7 +1,6 @@
 import React, {Component} from 'react';
 import Button from '../../../components/UI/Button/Button';
 import classes from './ContactData.css';
-import axios from '../../../axios-orders';
 import Spinner from '../../../components/UI/Spinner/Spinner';
 import Input from '../../../components/UI/Input/Input';
 import {connect} from 'react-redux';
@@ -111,16 +110,7 @@ class ContactData extends Component{
             price:this.props.price,
             orderData:formData
         }
-        axios.post("/orders.json", order) //sending post to firebase, firebase uses .json extension after path
-            .then(response=>{
-                this.setState({loading:false}); // swaps loading with the purchase
-                this.props.history.push('/');//redirects to home page after submitting data 
-            })
-            .catch(error=>{
-                console.log(error);
-                this.setState({loading:false}); // swaps loading with the purchase
-            });
-        console.log(this.props.ings);
+       
     }
 
 
