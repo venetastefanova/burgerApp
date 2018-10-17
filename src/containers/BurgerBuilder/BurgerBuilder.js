@@ -16,7 +16,9 @@ class BurgerBuilder extends Component{
         purchasing: false
     }
     
-
+    componentDidMount(){
+        this.props.onInitIngredients();
+    }
 
     //checks if the ingredient amount is 0 and if yes, makes the order button disabled
     updatePurchaseState (ingredients) {
@@ -58,7 +60,7 @@ class BurgerBuilder extends Component{
 
         let orderSummary = null;
 
-        let burger = this.state.error ? <p>the ingredients can't be loaded</p>: <Spinner/>;
+        let burger = this.props.error ? <p>the ingredients can't be loaded</p>: <Spinner/>;
        
         // if there are existing ingredients change the content of the variables
         if(this.props.ings){
@@ -99,15 +101,16 @@ class BurgerBuilder extends Component{
 const mapStateToProps = (state)=>{
     return {
         ings:state.ingredients,
-        price:state.totalPrice
+        price:state.totalPrice,
+        error:state.error
     }
 }
 
 const mapDispatchToProps = dispatch =>{
     return{
         onIngredientAdded: (ingName)=>dispatch(burgerBuilderActions.addIngredient(ingName)),
-        onIngredientRemoved: (ingName)=>dispatch(burgerBuilderActions.removeIngredient(ingName))
-        
+        onIngredientRemoved: (ingName)=>dispatch(burgerBuilderActions.removeIngredient(ingName)),
+        onInitIngredients: ()=>dispatch(burgerBuilderActions.initIngredients())
     }
 }
 export default connect(mapStateToProps, mapDispatchToProps)(withErrorHandler(BurgerBuilder,axios));

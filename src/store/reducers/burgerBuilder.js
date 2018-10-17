@@ -35,6 +35,17 @@ const reducer = (state=initialState, action)=>{
                 totalPrice:state.totalPrice - INGREDIENT_PRICES[action.ingredientName] // updates total price with the current state of the price with teh currently selected ingredient
                 
             }
+        case actionTypes.SET_INGREDIENTS:
+            return{
+                ...state,
+                ingredients:action.ingredients,
+                error:false
+            }
+        case actionTypes.FETCH_INGREDIENTS_FAIL:
+            return{
+                ...state,
+                error:true
+            }
         default:
             return state;
     }
