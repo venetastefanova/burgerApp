@@ -90,7 +90,7 @@ class ContactData extends Component{
                             {value:'cheapest', displayValue: 'cheapest'}                            
                         ]
                     },
-                    value: '',
+                    value: 'fastest',
                     validation:{},  // fixes a validation error
                     valid:true
                 }
@@ -198,9 +198,9 @@ class ContactData extends Component{
 
 const mapStateToProps = state => {
     return {
-        ings:state.ingredients,
-        price:state.totalPrice,
-        loading:state.loading
+        ings:state.burgerReducer.ingredients,
+        price:state.burgerReducer.totalPrice,
+        loading:state.orderReducer.loading
     }
 }
 
