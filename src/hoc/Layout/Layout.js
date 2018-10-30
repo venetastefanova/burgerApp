@@ -7,7 +7,7 @@ import SideDrawer from '../../components/Navigation/SideDrawer/SideDrawer';
 //turning it into a class so we ca use state to open and close the backdrop
 class Layout extends Component {
     state ={
-        showSideDrawer:true
+        showSideDrawer:false
     }
     sideDrawerClosedHandler = () => {
         this.setState({showSideDrawer:false});
