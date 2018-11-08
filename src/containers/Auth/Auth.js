@@ -5,6 +5,7 @@ import Button from "../../components/UI/Button/Button";
 import classes from './Auth.css';
 import * as actions from "../../store/actions/index";
 import Spinner from '../../components/UI/Spinner/Spinner';
+import {Redirect} from 'react-router-dom';
 
 export class Auth extends Component {
   state ={
@@ -94,45 +95,49 @@ export class Auth extends Component {
         this.props.onAuth(this.state.controls.email.value, this.state.controls.password.value, this.state.isSignup)
     }
 
-        switchAuthModeHandler=()=>{
-            this.setState(prevState=>{
-                return {isSignup:!prevState.isSignup}
-            })
-        }
+    switchAuthModeHandler=()=>{
+        this.setState(prevState=>{
+            return {isSignup:!prevState.isSignup}
+        })
+    }
   render() {
-      // creating array of the object form in the state
-      const formElementsArray = [];
-      for (let key in this.state.controls){
-          formElementsArray.push({
-              id:key, // name, street...
-              config:this.state.controls[key] // the object of name,street,///
-              
-          })
-      }
+    // creating array of the object form in the state
+    const formElementsArray = [];
+    for (let key in this.state.controls){
+        formElementsArray.push({
+            id:key, // name, street...
+            config:this.state.controls[key] // the object of name,street,///
+            
+        })
+    }
 
-      let form = formElementsArray.map(formElement=>(
-          <Input
-                key = {formElement.id}
-                invalid={!formElement.config.valid}
-                touched={formElement.config.touched}
-                shouldValidate={formElement.config.validation}
-                changed={(event)=>this.inputChangedHandler(event,formElement.id)}
-                elementType={formElement.config.elementType}
-                elementConfig={formElement.config.elementConfig}
-                value={formElement.config.value}/>
+    let form = formElementsArray.map(formElement=>(
+        <Input
+            key = {formElement.id}
+            invalid={!formElement.config.valid}
+            touched={formElement.config.touched}
+            shouldValidate={formElement.config.validation}
+            changed={(event)=>this.inputChangedHandler(event,formElement.id)}
+            elementType={formElement.config.elementType}
+            elementConfig={formElement.config.elementConfig}
+            value={formElement.config.value}/>
 
-      ))
+    ))
 
-      if(this.props.loading){
-          form = <Spinner/>
-      }
+    if(this.props.loading){
+        form = <Spinner/>
+    }
 
-      let errorMessage = null;
-      if(this.props.error){
-          errorMessage = (
-              <p>{this.props.error.message}</p>
-          )
-      }
+    let errorMessage = null;
+    if(this.props.error){
+        errorMessage = (
+            <p>{this.props.error.message}</p>
+        )
+    }
+
+    if(this.props.isAuthenticated){
+        return <Redirect to="/"/>
+    }
     return (
       <div className={classes.Auth}>
       {errorMessage}
@@ -152,7 +157,8 @@ export class Auth extends Component {
 const mapStateToProps = (state) => {
     return {
         loading: state.authReducer.loading,
-        error:state.authReducer.error
+        error:state.authReducer.error,
+        isAuthenticated:state.authReducer.token !== null
     }
 }
 
