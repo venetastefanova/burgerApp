@@ -7,6 +7,7 @@ import {connect} from 'react-redux';
 import axios from '../../../axios-orders';
 import withErrorHandler from "../../../hoc/withErrorHandler/withErrorHandler";
 import * as actions from '../../../store/actions/index';
+import {updateObject} from "../../../shared/utility";
 
 class ContactData extends Component{
     state={
@@ -150,26 +151,22 @@ class ContactData extends Component{
 
     // detects input chanage for all form elements
     inputChangedHandler=(event, inputIdentifier)=>{
-        //console.log(event.target.value);
-        const updatedOrderForm = {//cloning the orderForm object from state
-            ...this.state.orderForm
-        }
-        // updatedOrderForm[name],  updatedOrderForm[email]...
-        const updatedFormElement = {
-            ...updatedOrderForm[inputIdentifier]
-        }
-        //updates the value state with the changed input
-        updatedFormElement.value = event.target.value;
-        updatedFormElement.valid = this.checkValidity(updatedFormElement.value,updatedFormElement.validation)
-        updatedFormElement.touched = true;
+       
+        //using the utility function replaces the old object with a new one
+        const updatedFormElement = updateObject(this.state.orderForm[inputIdentifier],{
+            value:event.target.value,
+            valid:this.checkValidity(event.target.value,this.state.orderForm[inputIdentifier].validation),
+            touched:true
+        })
+        const updatedOrderForm = updateObject(this.state.orderForm,{
+            [inputIdentifier]:updatedFormElement
+        })
+
         let formIsValid = true;
         //checks if all inputs are valid
         for(let inputIdentifier in updatedOrderForm){
             formIsValid = updatedOrderForm[inputIdentifier].valid && formIsValid; // 
         }
-        console.log(formIsValid);
-        //console.log(updatedFormElement);
-        updatedOrderForm[inputIdentifier] = updatedFormElement;
         this.setState({orderForm:updatedOrderForm, formIsValid:formIsValid});
     }
     render(){
